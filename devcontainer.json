@@ -1,0 +1,6 @@
+{
+  "name": "Codespace GUI",
+  "build": { "dockerfile": "Dockerfile" },
+  "forwardPorts": [8080],
+  "remoteUser": "root"
+}
