@@ -1,0 +1,22 @@
+# .devcontainer/Dockerfile
+FROM mcr.microsoft.com/vscode/devcontainers/base:ubuntu
+
+# install desktop, vnc, websockify, python, wget
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    xfce4 xfce4-terminal xfce4-goodies \
+    tightvncserver websockify python3-pip git wget supervisor \
+    && pip3 install --no-cache-dir websockify \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install noVNC
+RUN git clone https://github.com/novnc/noVNC.git /opt/noVNC \
+    && git clone https://github.com/novnc/websockify /opt/noVNC/utils/websockify
+
+# Setup a minimal startup script
+COPY start-desktop.sh /usr/local/bin/start-desktop.sh
+RUN chmod +x /usr/local/bin/start-desktop.sh
+
+# Expose the port we will forward (HTTP for noVNC)
+EXPOSE 8080
+
+CMD [ "bash", "/usr/local/bin/start-desktop.sh" ]
