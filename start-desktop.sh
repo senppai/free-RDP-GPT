@@ -3,7 +3,7 @@
 
 # set VNC password (insecure for demo — change for your use)
 mkdir -p /root/.vnc
-echo "password" | vncpasswd -f > /root/.vnc/passwd
+echo "0Pvny1TKaF@" | vncpasswd -f > /root/.vnc/passwd
 chmod 600 /root/.vnc/passwd
 
 # start a lightweight X session
